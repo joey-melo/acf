@@ -1,0 +1,29 @@
+:root { --acf-profile-bar-height: 44px; }
+body { overflow: hidden; }
+#acf-profiles {
+    box-sizing: border-box;
+    height: var(--acf-profile-bar-height);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 14px;
+    background: #131e2c;
+    color: #dce5f3;
+    font: 14px/1.4 system-ui, sans-serif;
+    border-bottom: 1px solid #344155;
+}
+#acf-profiles span { margin-right: 6px; color: #6ee7bd; font-weight: 600; }
+#acf-profiles button {
+    padding: 5px 14px;
+    border: 1px solid #4f627a;
+    border-radius: 5px;
+    background: #233247;
+    color: #f2f6ff;
+    font: inherit;
+    cursor: pointer;
+}
+#acf-profiles button:hover:enabled { background: #354b66; }
+#acf-profiles button:focus-visible { outline: 2px solid #6ee7bd; outline-offset: 2px; }
+#acf-profiles button:disabled { opacity: .5; cursor: default; }
+#noVNC_container { height: calc(100% - var(--acf-profile-bar-height)); }
+#noVNC_control_bar_anchor { margin-top: var(--acf-profile-bar-height); }

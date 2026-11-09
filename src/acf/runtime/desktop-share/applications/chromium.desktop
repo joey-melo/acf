@@ -1,0 +1,11 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Web Browser
+Comment=Open Chromium through Caido
+Exec=/opt/acf/bin/acf-desktop-browser %U
+TryExec=/opt/acf/bin/acf-desktop-browser
+Icon=chromium
+Terminal=false
+Categories=Network;WebBrowser;
+MimeType=text/html;x-scheme-handler/http;x-scheme-handler/https;

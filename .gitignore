@@ -1,0 +1,40 @@
+# Local configuration and credentials
+.env
+.env.*
+config.toml
+config.toml.draft
+.acf-edit-*
+.acf/
+.dev/
+*.pem
+*.key
+auth.json
+.credentials.json
+# User resources (reusable starting points are tracked in examples/)
+/prompts/
+/skills/
+/bin/
+# Python, packaging and test output
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+coverage.xml
+build/
+dist/
+*.egg-info/
+# Editors, operating systems and logs
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+*.log
+node_modules/

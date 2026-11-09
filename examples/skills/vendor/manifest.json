@@ -1,0 +1,55 @@
+[
+  {
+    "name": "caido-mode",
+    "description": "Official Caido skill",
+    "repository": "https://github.com/caido/skills",
+    "revision": "41697d8c647c3e61f6efdb3bf01cbfa66c27e2fd",
+    "path": "skills/caido-mode",
+    "license": "MIT",
+    "retrieved": "2026-11-04",
+    "files": {
+      ".gitignore": "4d56952b0fb13bf8f9b6c13a6d4c34a075bac3af447636a1df4335d7576e2f97",
+      "LICENSE": "af1780ea25cc4d2d4173e78a2407f2dc992be3cde5272b78cf0e044e0d726462",
+      "README.md": "c8514ad731f9388ea20382cf766e4c88e64233a75c07f8bd2221ec65c3bdef05",
+      "SKILL.md": "83b8cdba4cb71ab572f00cc834c8421dc2a42debd5c35e582eddce50e8b71939",
+      "caido-client.ts": "0e9bdcfaa852108683cca984a70a4f306a4658146825c26c3e66fcde445f07e6",
+      "lib/client.ts": "80c2d82814de1f739967219fe6549f45ea3c2aeba4d8b1d0b00f0a9764d50888",
+      "lib/commands/findings.ts": "c42ca140af5f6366c2e088e7fdcdac7fddc4133b1b7bfafa208cd03d81345a68",
+      "lib/commands/info.ts": "003b04d3f96e98ff3aad12f82db15e7147bdf261a5229c5b1965e76fcd76f5f4",
+      "lib/commands/intercept.ts": "217000a4a335902afbff0fd614596af37023ab288bb48589abe1d719192c1a8f",
+      "lib/commands/management.ts": "ff56033a9cf1bd1d6a1fb59b7d62b3151ba14dfa708b6e5c3900a2905dfcb8cc",
+      "lib/commands/matchreplace.ts": "450c21924336515785c0f4b560a1a431c20e0dc1a336ebb97962f4448f335c2b",
+      "lib/commands/replay.ts": "94b4f96fb077e69eeb73c3af4684cddfcc77e4cad12a1731e6e16a30b58c0ed1",
+      "lib/commands/requests.ts": "8489822c404dfa5d7d5bf5998905009d81747f0f8438d8f2373ef2ce396aac8b",
+      "lib/graphql.ts": "6da4efecd3617b692915349ccebefac9548640876b7d1cd513d1c3ff26424e70",
+      "lib/output.ts": "3a3e33b38cfe3c9ea2b3009be20f993996c9b8bfff2dfba73ab3c746fef4135a",
+      "lib/types.ts": "c85329ba348617d455517a728877f7bee7cd3a90dc2ad670eea25bdda45d76a2",
+      "package-lock.json": "44b3f3ffedc312c90b887127e09c9753ca6bdc8917dfb27f9de225730bd898d8",
+      "package.json": "be4bdde6878759ee9e187133b41f33e4a29a231149cab6d07802ec7ca601f4a3",
+      "test/exportcurl.test.ts": "d02a7699d7f716fd085d310bc1a3d7282b12ed86a4d06c215abc4b23137c7b32",
+      "test/matchreplace.test.ts": "ba2eb70e0a4af76fcfe801cac020ac0ab7dbd794d52fc9da0986cfaad7359421",
+      "test/rawedit.test.ts": "464ecdd290ff97d70e7d9ec7fa2eaa853ac251ba009398e4c4b982936294666d"
+    }
+  },
+  {
+    "name": "ghidra",
+    "description": "Community Ghidra skill; not an NSA distribution",
+    "repository": "https://github.com/mitsuhiko/agent-stuff",
+    "revision": "0865c849befd2021490679f96a8dee58c84ac857",
+    "path": "skills/ghidra",
+    "license": "Apache-2.0",
+    "retrieved": "2026-11-04",
+    "files": {
+      "LICENSE": "a60eea817514531668d7e00765731449fe14d059d3249e0bc93b36de45f759f2",
+      "SKILL.md": "d93aa0f847e7f3f25557181723255d94aa33d0f19c81a937ea5f75dbc1a7dc1a",
+      "scripts/find-ghidra.sh": "b5c7ac8386adf26010b25782653ba0f270ab14d9fa4e14d16ddac749f805bb3b",
+      "scripts/ghidra-analyze.sh": "fdf9f81b782aefe31f14971c9aa786b76ff1fdf820036212c34753d91c8d095a",
+      "scripts/ghidra_scripts/ExportAll.java": "0922edbc4c10ded8f9f531ebfa92890ba85148e9d4e72b408a03f3dbbb7ff3f0",
+      "scripts/ghidra_scripts/ExportCalls.java": "1dd109b8757977c91006e40ff59ad6338bfdecedcfd858be6bb0ea73172d6d83",
+      "scripts/ghidra_scripts/ExportDecompiled.java": "ce6b0703b8f619b917b4eef5db57bbf838d874a7729164946e88959a5b5a15af",
+      "scripts/ghidra_scripts/ExportFunctions.java": "4cbe7d86b0eccc78a1546bfce6c563f9db3c2055c86b01a096f1f4a618c786d3",
+      "scripts/ghidra_scripts/ExportStrings.java": "72ed2f87e231db98ab09619184183261f363b9782a5e457b4e5c594a381e5d07",
+      "scripts/ghidra_scripts/ExportSymbols.java": "6dea26ece9efe5d3d8efc54f31d8fe7247b50ed342b683ed16ec486472c580c5"
+    }
+  }
+]

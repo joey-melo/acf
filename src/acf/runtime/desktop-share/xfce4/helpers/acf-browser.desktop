@@ -1,0 +1,8 @@
+[Desktop Entry]
+Version=1.0
+Type=X-XFCE-Helper
+Name=ACF Browser
+Icon=chromium
+X-XFCE-Category=WebBrowser
+X-XFCE-Commands=/opt/acf/bin/acf-desktop-browser;
+X-XFCE-CommandsWithParameter=/opt/acf/bin/acf-desktop-browser "%s";

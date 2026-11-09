@@ -1,0 +1,45 @@
+# ACF creation defaults, including credentials. Keep this file private (chmod 600).
+# Local checkout config.toml overrides the global config.toml.
+# The setup wizard and later container edits never change these defaults.
+[environment]
+image = "acf:local"
+cpus = 4
+memory = "8g"
+pids_limit = 2048
+shm_size = "1g"
+
+[network]
+# restricted: public Internet only; offline: no egress; open: unrestricted egress.
+mode = "restricted"
+# Publish services on the host's network interfaces.
+bind = "0.0.0.0"
+# Empty: detect the host address. Set a public IP or DNS name behind cloud NAT.
+advertise_host = ""
+allow = []
+block = []
+
+[ports]
+# 0 asks Docker to allocate an unused host port; internal service ports are fixed.
+caido = 0
+novnc = 0
+files = 0
+# Optional name and protocol: auto (detect), http, https, or tcp.
+# Example: [{host = 0, container = 3000, name = "app", protocol = "http"}].
+extra = []
+
+[oob]
+dns = ""
+ssh_host = ""
+ssh_username = ""
+# ssh_key_path = "~/.ssh/id_rsa"
+
+[credentials]
+OPENAI_API_KEY = ""
+ANTHROPIC_API_KEY = ""
+OPENROUTER_API_KEY = ""
+GLM_API_KEY = ""
+CAIDO_PAT = ""
+GMAIL_ACCESS_TOKEN = ""
+GMAIL_CLIENT_ID = ""
+GMAIL_CLIENT_SECRET = ""
+GMAIL_REFRESH_TOKEN = ""

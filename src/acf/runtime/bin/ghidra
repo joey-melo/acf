@@ -1,0 +1,6 @@
+#!/bin/sh
+set -eu
+acf-install ghidra
+export GHIDRA_HOME=/opt/acf-tools/ghidra GHIDRA_INSTALL_DIR=/opt/acf-tools/ghidra
+export DISPLAY="${DISPLAY:-:1}"
+exec /opt/acf-tools/ghidra/ghidraRun "$@"

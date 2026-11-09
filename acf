@@ -1,0 +1,11 @@
+#!/usr/bin/env python3
+"""Run ACF from any working directory, without installing host packages."""
+import sys
+from pathlib import Path
+
+if sys.version_info < (3, 11):
+    sys.exit("ACF requires Python 3.11 or newer. Install it and run ./acf again.")
+sys.path.insert(0, str(Path(__file__).resolve().parent / "src"))
+from acf.cli import main
+
+raise SystemExit(main())

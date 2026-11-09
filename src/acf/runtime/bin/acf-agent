@@ -1,0 +1,194 @@
+#!/usr/bin/env python3
+"""Launch an agent using only this project's credentials and resources."""
+import json
+import hashlib
+import fcntl
+import os
+from pathlib import Path
+import pwd
+import shutil
+import subprocess
+import sys
+
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
+from common import environment
+from agent_auth import install_auth
+
+DEFAULT_GLM_MODEL = 'glm-5.3'
+
+
+def configured_provider_model(provider, env):
+    """Keep session overrides literal; upgrade ACF's retired GLM default."""
+    session_model = env.get(f'{provider.upper()}_MODEL')
+    if session_model:
+        return session_model
+    model = env.get(f'ACF_{provider.upper()}_MODEL')
+    if provider == 'glm' and model in (None, '', 'glm-5'):
+        # Docker's creation-time environment cannot be changed by resource sync.
+        # Updating the launcher also repairs containers carrying the old default.
+        return DEFAULT_GLM_MODEL
+    return model
+
+
+def explicit_model(args):
+    """Find Claude's model flag without changing or shell-evaluating arguments."""
+    selected = None
+    for index, value in enumerate(args):
+        if value == '--':
+            break
+        if value == '--model':
+            if index + 1 == len(args) or not args[index + 1] or args[index + 1].startswith('-'):
+                sys.exit('--model needs a model identifier.')
+            selected = args[index + 1]
+        elif value.startswith('--model='):
+            selected = value.partition('=')[2]
+            if not selected:
+                sys.exit('--model needs a model identifier.')
+    return selected
+
+
+def show_help(provider=None):
+    if provider in ('glm', 'openrouter'):
+        example = DEFAULT_GLM_MODEL if provider == 'glm' else 'anthropic/claude-sonnet-4.6'
+        credential = 'GLM_API_KEY' if provider == 'glm' else 'OPENROUTER_API_KEY'
+        print(f'Usage: {provider} [--model MODEL] [Claude Code arguments...]\n\n'
+              f'  export {credential}=\'your-api-key\'\n'
+              f'  {provider}                         Use this container\'s configured model\n'
+              f'  {provider} --model {example}\n\n'
+              'An exported key takes precedence over a key saved for this container.\n'
+              'Run from the same root shell; no config.toml change or sync is needed.\n'
+              '--model selects a model for this session without changing config.toml.\n'
+              'Additional arguments are passed to Claude Code; see claude --help.')
+    else:
+        print('Usage: acf-agent codex|claude|openrouter|glm [agent arguments...]\n'
+              'Inside the container, glm and openrouter also launch their providers directly.')
+
+
+def prepare(home, provider):
+    source = Path('/opt/acf/project')
+    for name in ('.codex', '.claude', '.agents'):
+        (home / name).mkdir(parents=True, exist_ok=True)
+    skills = source / 'skills'
+    if skills.exists():
+        for destination in (home / '.agents/skills', home / '.claude/skills'):
+            # ACF owns this link, while project-level skill directories remain separate.
+            if destination.is_symlink():
+                destination.unlink()
+            if not destination.exists():
+                destination.symlink_to(skills, target_is_directory=True)
+        caido = skills / 'caido-mode'
+        lock = caido / 'package-lock.json'
+        enabled = os.environ.get('ACF_INTEGRATIONS', 'codex,claude,openrouter,glm,caido,oob').split(',')
+        if lock.is_file() and 'caido' in enabled:
+            digest = hashlib.sha256(lock.read_bytes()).hexdigest()
+            cache = Path('/opt/acf-tools/caido-skills') / digest
+            cache.mkdir(parents=True, exist_ok=True)
+            # Resource sync replaces staging. Keep lockfile-specific dependencies
+            # on the tool volume so subsequent/offline launches need no network.
+            with (cache / '.install.lock').open('w') as install_lock:
+                fcntl.flock(install_lock, fcntl.LOCK_EX)
+                marker = cache / '.installed'
+                if not marker.exists() or not (cache / 'node_modules').is_dir():
+                    shutil.copy2(caido / 'package.json', cache / 'package.json')
+                    shutil.copy2(lock, cache / 'package-lock.json')
+                    subprocess.run(['npm', 'ci', '--ignore-scripts', '--no-audit', '--no-fund'], cwd=cache, check=True)
+                    marker.touch()
+            dependencies = caido / 'node_modules'
+            if dependencies.is_symlink():
+                dependencies.unlink()
+            elif dependencies.exists():
+                shutil.rmtree(dependencies)
+            dependencies.symlink_to(cache / 'node_modules', target_is_directory=True)
+    user = pwd.getpwnam('agent') if provider != 'codex' else None
+    install_auth(home, owner=(user.pw_uid, user.pw_gid) if user else None)
+    if provider != 'codex':
+        user = pwd.getpwnam('agent')
+        for directory in (home / '.claude', home / '.agents', home / '.codex'):
+            for root, dirs, files in os.walk(directory, followlinks=False):
+                os.chown(root, user.pw_uid, user.pw_gid)
+                for name in dirs + files:
+                    os.chown(Path(root) / name, user.pw_uid, user.pw_gid, follow_symlinks=False)
+        if (home / '.claude.json').exists():
+            os.chown(home / '.claude.json', user.pw_uid, user.pw_gid)
+
+
+def main():
+    if len(sys.argv) == 2 and sys.argv[1] in ('-h', '--help'):
+        show_help()
+        return
+    if len(sys.argv) < 2 or sys.argv[1] not in ('codex', 'claude', 'openrouter', 'glm'):
+        sys.exit('usage: acf-agent codex|claude|openrouter|glm [agent arguments...]')
+    provider, args = sys.argv[1], sys.argv[2:]
+    options = args[:args.index('--')] if '--' in args else args
+    if '-h' in options or '--help' in options:
+        if provider in ('glm', 'openrouter'):
+            show_help(provider)
+        else:
+            program = 'codex' if provider == 'codex' else 'claude'
+            os.execvpe(program, [program, '--help'], dict(os.environ))
+        return
+    selected_model = explicit_model(args) if provider in ('openrouter', 'glm') else None
+    env = environment()
+    if provider not in env.get('ACF_INTEGRATIONS', 'codex,claude,openrouter,glm,caido,oob').split(','):
+        sys.exit(f'{provider} is disabled for this project; enable it in integrations.enabled.')
+    key = None
+    if provider in ('openrouter', 'glm'):
+        credential = 'OPENROUTER_API_KEY' if provider == 'openrouter' else 'GLM_API_KEY'
+        key = env.get(credential)
+        if not key:
+            sys.exit(f'{provider}: export {credential}=\'your-api-key\' in this container shell and run {provider} again. Alternatively, set credentials.{credential} in this container\'s dashboard settings and sync.')
+    home = Path('/root' if provider == 'codex' else '/home/agent')
+    if os.geteuid() == 0:
+        prepare(home, provider)
+    env.update(HOME=str(home), USER='root' if provider == 'codex' else 'agent')
+    env['CODEX_HOME'] = str(home / '.codex')
+    env['CLAUDE_CONFIG_DIR'] = str(home / '.claude')
+    env.setdefault('CAIDO_URL', 'http://127.0.0.1:8080')
+    env.setdefault('GHIDRA_HOME', '/opt/acf-tools/ghidra')
+    env.setdefault('GHIDRA_INSTALL_DIR', '/opt/acf-tools/ghidra')
+    instructions = Path('/opt/acf/project/AGENTS.md')
+    if provider == 'codex':
+        cmd = ['codex', '--dangerously-bypass-approvals-and-sandbox', '-C', '/workspace',
+               '-c', 'cli_auth_credentials_store="file"']
+        if instructions.is_file():
+            cmd += ['-c', 'developer_instructions=' + json.dumps(instructions.read_text())]
+    else:
+        cmd = ['claude', '--dangerously-skip-permissions']
+        if instructions.is_file():
+            cmd += ['--append-system-prompt-file', str(instructions)]
+        if provider in ('openrouter', 'glm'):
+            env['ANTHROPIC_AUTH_TOKEN'] = key
+            env['ANTHROPIC_API_KEY'] = ''
+            env.pop('CLAUDE_CODE_OAUTH_TOKEN', None)
+            env['ANTHROPIC_BASE_URL'] = ('https://openrouter.ai/api' if provider == 'openrouter'
+                                         else env.get('GLM_BASE_URL', 'https://api.z.ai/api/anthropic'))
+            env['CLAUDE_CONFIG_DIR'] = str(home / f'.claude-{provider}')
+            config = Path(env['CLAUDE_CONFIG_DIR'])
+            config.mkdir(exist_ok=True)
+            skill_link = config / 'skills'
+            if not skill_link.exists():
+                skill_link.symlink_to('/opt/acf/project/skills', target_is_directory=True)
+            if os.geteuid() == 0:
+                user = pwd.getpwnam('agent')
+                os.chown(config, user.pw_uid, user.pw_gid)
+            configured_model = configured_provider_model(provider, env)
+            # Aliases such as --model sonnet should keep their provider mapping;
+            # a full model identifier also selects the helper/sub-agent models.
+            model = configured_model if selected_model in ('opus', 'sonnet', 'haiku') else selected_model or configured_model
+            if model:
+                for size in ('OPUS', 'SONNET', 'HAIKU'):
+                    env[f'ANTHROPIC_DEFAULT_{size}_MODEL'] = model
+                env['CLAUDE_CODE_SUBAGENT_MODEL'] = model
+                if selected_model is None:
+                    cmd += ['--model', model]
+        if os.geteuid() == 0:
+            user = pwd.getpwnam('agent')
+            os.initgroups(user.pw_name, user.pw_gid)
+            os.setgid(user.pw_gid)
+            os.setuid(user.pw_uid)
+    os.chdir('/workspace')
+    os.execvpe(cmd[0], cmd + args, env)
+
+
+if __name__ == '__main__':
+    main()

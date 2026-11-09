@@ -1,0 +1,276 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="dark light">
+<title>Files · ACF</title>
+<style>
+:root{color-scheme:dark;--bg:#11161c;--panel:#161d25;--raised:#1d2732;--line:#2a3541;--text:#e5eaf0;--muted:#9aa9b9;--accent:#87d7c1;--focus:#b2e9dc;--hover:#23313e;--danger:#ffbdad;--radius:9px;font:14px/1.5 ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text)}a{color:inherit;text-decoration:none}button,input{font:inherit}button,a,input{-webkit-tap-highlight-color:transparent}button{cursor:pointer;color:inherit}button:disabled{cursor:default;opacity:.45}button:focus-visible,a:focus-visible,input:focus-visible{outline:2px solid var(--focus);outline-offset:3px}button{border:1px solid var(--line);background:var(--panel);border-radius:7px;padding:7px 11px}button:hover:not(:disabled),.button:hover{background:var(--hover)}svg{width:18px;height:18px;flex:none;stroke:currentColor;fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;vertical-align:middle}.icon-button{display:inline-flex;align-items:center;justify-content:center;padding:7px;background:transparent}.button{display:inline-flex;align-items:center;gap:7px;border:1px solid var(--line);background:var(--panel);border-radius:7px;padding:7px 11px;white-space:nowrap}.primary{color:var(--accent)}.app{display:grid;grid-template-columns:258px minmax(0,1fr);grid-template-rows:66px minmax(0,1fr);height:100vh;height:100dvh}.topbar{grid-column:1/-1;display:flex;align-items:center;justify-content:space-between;gap:14px;border-bottom:1px solid var(--line);padding:0 24px;background:var(--panel)}.brand{display:flex;align-items:center;gap:12px;font-size:18px;font-weight:650;letter-spacing:-.4px}.brand-mark{display:grid;place-items:center;width:32px;height:32px;color:var(--accent);background:#233a39;border:1px solid #38564e;border-radius:9px}.brand small{font-size:12px;font-weight:400;letter-spacing:0;color:var(--muted);margin-left:5px}.status{display:flex;align-items:center;gap:7px;color:var(--muted);font-size:12px}.status svg{width:14px;height:14px}.sidebar{border-right:1px solid var(--line);background:var(--panel);padding:22px 12px;overflow:auto}.section-label{font-size:10px;color:var(--muted);font-weight:650;letter-spacing:1.5px;text-transform:uppercase;padding:0 12px;margin:0 0 10px}.shortcuts{display:grid;gap:3px;margin-bottom:28px}.shortcut{display:flex;align-items:center;gap:10px;padding:8px 12px;border-radius:7px;color:var(--muted)}.shortcut:hover{background:var(--hover);color:var(--text)}.shortcut svg{color:var(--accent)}.tree,.tree ul{list-style:none;padding:0;margin:0}.tree ul{padding-left:17px;margin-left:11px;border-left:1px solid var(--line)}.tree-row{display:flex;align-items:center;gap:2px;min-height:34px;border-radius:6px}.tree-row:hover{background:var(--hover)}.tree-row.current{background:#263d3c;color:var(--accent)}.tree-toggle{border:0;background:transparent;flex:none;width:25px;height:30px;padding:3px;color:var(--muted)}.tree-toggle svg{width:13px;height:13px;transition:transform .12s}.tree-toggle[aria-expanded=true] svg{transform:rotate(90deg)}.tree-link{min-width:0;flex:1;display:flex;align-items:center;gap:7px;padding:5px 6px 5px 0}.tree-link svg{width:16px;height:16px;color:var(--muted)}.tree-link span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.tree-note{font-size:12px;color:var(--muted);padding:5px 9px}.tree-more{border:0;background:transparent;color:var(--accent);font-size:12px;padding:5px 9px}.workspace{min-width:0;min-height:0;display:flex;flex-direction:column}.pathbar{display:flex;align-items:center;gap:15px;padding:15px 26px;border-bottom:1px solid var(--line);min-height:64px}.breadcrumbs{min-width:0;display:flex;align-items:center;gap:7px;overflow:auto;white-space:nowrap;font-size:13px;scrollbar-width:thin}.breadcrumbs a{color:var(--muted);padding:3px 1px}.breadcrumbs a:hover{color:var(--accent)}.breadcrumbs .separator{color:#586877;font-size:16px}.breadcrumbs [aria-current=page]{color:var(--text)}.pathbar>.icon-button{flex:none}.content{min-height:0;flex:1;overflow:auto;padding:28px 30px 24px}.page-heading{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;margin-bottom:24px}.page-heading h1{font-size:25px;line-height:1.3;font-weight:600;letter-spacing:-.6px;margin:0 0 5px;overflow-wrap:anywhere}.subtitle{font-size:12px;color:var(--muted);overflow-wrap:anywhere}.actions{display:flex;gap:8px;flex-wrap:wrap}.notice{padding:10px 13px;border:1px solid var(--line);border-radius:var(--radius);background:var(--panel);font-size:12px;color:var(--muted);margin-bottom:16px}.notice.warning{border-color:#665043;color:#e9c7a5}.listing{width:100%;border-collapse:collapse;text-align:left;table-layout:fixed}.listing thead{font-size:11px;text-transform:uppercase;letter-spacing:1px;color:var(--muted)}.listing th{font-weight:500;padding:0 12px 10px;border-bottom:1px solid var(--line)}.listing th:first-child{padding-left:0}.listing th:nth-child(2){width:100px}.listing th:nth-child(3){width:100px;text-align:right}.listing th:nth-child(4){width:184px}.listing td:nth-child(4){white-space:nowrap}.listing th:last-child{width:44px}.listing td{padding:11px 12px;border-bottom:1px solid #232c36;font-size:13px}.listing td:first-child{padding-left:0}.listing td:nth-child(2),.listing td:nth-child(4){color:var(--muted);font-size:12px}.listing td:nth-child(3){text-align:right;font-variant-numeric:tabular-nums;color:var(--muted);font-size:12px}.listing td:last-child{padding:5px 0;text-align:right}.listing tbody tr:hover{background:#18212b}.entry-link{display:flex;align-items:center;gap:11px;min-width:0;padding:3px 0}.entry-link .name{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.entry-link svg{color:#9aabbb}.entry-link.directory svg{color:var(--accent);fill:#29423e}.symlink{color:var(--muted);font-size:11px;flex:none}.row-download{opacity:.55}.listing tr:hover .row-download,.row-download:focus-visible{opacity:1}.load-more{display:block;margin:22px auto}.empty{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:230px;text-align:center;color:var(--muted);gap:8px}.empty>svg{width:38px;height:38px;margin-bottom:5px;color:#627588}.empty strong{color:var(--text);font-size:16px;font-weight:500}.empty p{max-width:500px;margin:0;overflow-wrap:anywhere}.empty .actions{margin-top:12px}.preview{margin:0;border:1px solid var(--line);background:#0e1319;border-radius:var(--radius);overflow:auto;tab-size:4;padding:20px 22px;color:#cbd7e3;font:12px/1.75 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;white-space:pre;min-height:150px;max-height:calc(100dvh - 290px)}.preview:focus{outline-offset:3px}.preview-footer{display:flex;justify-content:space-between;gap:12px;margin-top:10px;font-size:11px;color:var(--muted)}.footer{display:flex;justify-content:space-between;gap:16px;padding:9px 26px;border-top:1px solid var(--line);font-size:11px;color:var(--muted);background:var(--panel)}.footer-path{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.spinner{width:20px;height:20px;border:2px solid var(--line);border-top-color:var(--accent);border-radius:50%;animation:spin .7s linear infinite;margin-bottom:8px}@keyframes spin{to{transform:rotate(360deg)}}.toast{position:fixed;bottom:48px;left:50%;transform:translateX(-50%);max-width:calc(100vw - 32px);padding:10px 17px;background:#29423e;color:#dff8ef;border:1px solid #446d61;border-radius:8px;box-shadow:0 8px 28px #0005;font-size:13px;z-index:20;overflow-wrap:anywhere}.toast.error{background:#462d29;color:#ffe0d7;border-color:#795046}.mobile-toggle,.overlay{display:none}.visually-hidden{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}[hidden]{display:none!important}
+@media(min-width:1600px){.content{padding:30px 40px}}@media(max-width:1000px){.listing th:nth-child(4),.listing td:nth-child(4){display:none}.content{padding:24px}.app{grid-template-columns:225px minmax(0,1fr)}}@media(max-width:720px){.app{grid-template-columns:minmax(0,1fr);grid-template-rows:58px minmax(0,1fr)}.topbar{padding:0 16px}.brand{gap:9px}.brand small{display:none}.mobile-toggle{display:inline-flex}.sidebar{position:fixed;top:58px;bottom:0;left:0;width:280px;max-width:85vw;z-index:12;transform:translateX(-100%);transition:transform .16s}.app.sidebar-open .sidebar{transform:translateX(0)}.overlay{position:fixed;inset:58px 0 0;background:#0008;z-index:11;border:0;border-radius:0}.app.sidebar-open .overlay{display:block}.pathbar{padding:12px 16px;gap:10px;min-height:58px}.content{padding:22px 16px}.page-heading{flex-wrap:wrap;gap:14px;margin-bottom:20px}.page-heading h1{font-size:23px}.listing th:nth-child(2),.listing td:nth-child(2){display:none}.listing th:nth-child(3){width:76px}.listing td{padding:10px 8px}.listing th{padding:0 8px 10px}.listing th:last-child{width:32px}.entry-link{gap:8px}.footer{padding:9px 16px}.preview{padding:14px;font-size:11px;max-height:calc(100dvh - 330px)}.status{font-size:11px}.row-download{opacity:1}}
+
+.preview-toolbar{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:0 0 14px}.preview-label{display:flex;align-items:center;gap:8px;color:var(--muted);font-size:12px}.preview-label svg{width:15px;height:15px;color:var(--accent)}.preview-modes{display:inline-flex;gap:3px;padding:3px;background:#0e1319;border:1px solid var(--line);border-radius:9px}.preview-mode{padding:5px 13px;border:1px solid transparent;background:transparent;border-radius:6px;font-size:12px;color:var(--muted)}.preview-mode[aria-pressed=true]{background:#263d3c;border-color:#38564e;color:#c6eee3;box-shadow:0 1px 3px #0003}.markdown-preview{border:1px solid var(--line);border-radius:var(--radius);background:var(--panel);padding:32px clamp(22px,4vw,64px);color:#d1dce7;font-size:15px;line-height:1.8;overflow-wrap:anywhere;min-height:150px}.markdown-preview>*{max-width:900px;margin-right:auto;margin-left:auto}.markdown-preview>:first-child{margin-top:0}.markdown-preview>:last-child{margin-bottom:0}.markdown-preview h1,.markdown-preview h2,.markdown-preview h3,.markdown-preview h4,.markdown-preview h5,.markdown-preview h6{color:#f1f5f8;line-height:1.35;letter-spacing:-.025em;font-weight:650;margin-top:1.8em;margin-bottom:.7em;scroll-margin-top:24px}.markdown-preview h1{font-size:2em;padding-bottom:.5em;border-bottom:1px solid var(--line)}.markdown-preview h2{font-size:1.5em;padding-bottom:.4em;border-bottom:1px solid #27333f}.markdown-preview h3{font-size:1.2em}.markdown-preview h4{font-size:1.05em}.markdown-preview h5,.markdown-preview h6{font-size:1em;color:var(--muted)}.markdown-preview p,.markdown-preview ul,.markdown-preview ol,.markdown-preview blockquote,.markdown-preview pre,.markdown-preview table{margin-top:0;margin-bottom:1.25em}.markdown-preview a{color:var(--accent);text-decoration:underline;text-decoration-color:#547e73;text-underline-offset:3px}.markdown-preview a:hover{color:#c4f3e4;text-decoration-color:currentColor}.markdown-preview ul,.markdown-preview ol{padding-left:1.7em}.markdown-preview li{padding-left:.25em;margin:.3em 0}.markdown-preview li::marker{color:var(--muted)}.markdown-preview li>ul,.markdown-preview li>ol{margin:.4em 0}.markdown-preview li>p{margin:.5em 0}.markdown-preview strong{color:#edf3f8;font-weight:650}.markdown-preview code{font: .86em/1.6 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;background:#23303b;color:#c0e6db;border:1px solid #31404d;border-radius:5px;padding:.15em .35em;overflow-wrap:anywhere}.markdown-preview pre{padding:18px 21px;border:1px solid var(--line);border-radius:8px;background:#0e1319;overflow:auto;tab-size:4;line-height:1.7;white-space:pre}.markdown-preview pre code{padding:0;border:0;background:none;color:#d0dae5;font-size:12px;overflow-wrap:normal}.markdown-preview blockquote{padding:3px 0 3px 19px;border-left:3px solid #6daf9b;color:var(--muted)}.markdown-preview blockquote>:last-child{margin-bottom:0}.markdown-preview table{display:block;width:max-content;max-width:100%;overflow:auto;border-spacing:0;border-collapse:collapse;font-size:13px;line-height:1.6}.markdown-preview th,.markdown-preview td{padding:10px 14px;border:1px solid var(--line);text-align:left}.markdown-preview th{background:#22302f;color:#d8ede6;font-weight:600}.markdown-preview tr:nth-child(even) td{background:#19232c}.markdown-preview hr{border:0;border-top:1px solid var(--line);margin-top:2em;margin-bottom:2em}.markdown-preview del{color:var(--muted)}.markdown-image{display:inline-flex;gap:7px;align-items:baseline;max-width:100%;padding:8px 12px;border:1px dashed #455363;border-radius:7px;color:var(--muted);font-size:13px}.markdown-image small{color:#8193a5;font-size:11px}.markdown-link-disabled{color:inherit}.markdown-empty{color:var(--muted);font-style:italic}.markdown-preview:focus-visible{outline:2px solid var(--focus);outline-offset:3px}
+@media(max-width:720px){.markdown-preview{padding:24px 18px;font-size:14px}.markdown-preview h1{font-size:1.7em}.markdown-preview pre{padding:14px}.preview-toolbar{gap:8px}.preview-mode{padding:5px 11px}.preview-label{font-size:11px}.markdown-image{flex-wrap:wrap;gap:3px 7px}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition:none!important}}
+
+.upload-dialog{width:min(580px,calc(100vw - 32px));max-height:calc(100dvh - 32px);overflow:auto;padding:26px;border:1px solid var(--line);border-radius:14px;background:var(--panel);color:var(--text);box-shadow:0 24px 90px #0007}.upload-dialog::backdrop{background:#070b10b8}.upload-dialog h2{margin:0 0 7px;font-size:21px;letter-spacing:-.4px}.upload-intro{margin:0 0 22px;color:var(--muted);font-size:13px}.upload-field{display:grid;gap:7px;margin:17px 0;font-size:13px}.upload-field input{width:100%;min-width:0;border:1px solid var(--line);border-radius:7px;background:var(--bg);color:var(--text);padding:10px}.upload-field input::file-selector-button{font:inherit;color:var(--accent);background:var(--raised);border:1px solid var(--line);border-radius:5px;padding:5px 8px;margin-right:10px;cursor:pointer}.upload-option{display:flex;align-items:flex-start;gap:9px;font-size:13px;margin:20px 0 12px}.upload-option input{accent-color:var(--accent);margin-top:4px;flex:none}.upload-destination{padding:13px 15px;background:#203330;border:1px solid #38564e;border-radius:9px;display:grid;gap:5px}.upload-destination span{color:var(--muted);font-size:11px;text-transform:uppercase;letter-spacing:1px}.upload-destination output{color:#c6eee3;font:13px/1.6 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;overflow-wrap:anywhere}.upload-note{font-size:12px;color:var(--muted);margin:13px 0 19px}.upload-error{color:var(--danger);border-color:#795046;background:#392824;overflow-wrap:anywhere}.upload-progress{display:flex;gap:10px;align-items:center;margin:16px 0;color:var(--accent);font-size:13px}.upload-progress .spinner{width:16px;height:16px;margin:0;flex:none}.upload-dialog .actions{justify-content:flex-end}.upload-dialog .primary{background:#263d3c;border-color:#38564e}.upload-dialog .primary:hover:not(:disabled){background:#304d47}@media(max-width:480px){.upload-dialog{padding:20px}.topbar{gap:8px}#upload-open{padding:7px 9px;font-size:12px}}
+.upload-queue{display:grid;gap:10px;margin:15px 0;max-height:280px;overflow:auto;padding:1px}.upload-item{border:1px solid var(--line);border-radius:8px;padding:12px;background:var(--bg);min-width:0}.upload-item.uploaded{border-color:#38564e}.upload-item.failed{border-color:#795046}.upload-item-heading{display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin-bottom:7px}.upload-original{overflow-wrap:anywhere;font-size:12px;color:var(--muted);min-width:0}.upload-size{font-size:11px;color:var(--muted);white-space:nowrap}.upload-save{display:flex;align-items:center;gap:9px;font-size:12px;color:var(--muted)}.upload-save span{white-space:nowrap}.upload-save input{width:100%;min-width:0;padding:7px 9px;border:1px solid var(--line);border-radius:6px;color:var(--text);background:var(--panel)}.upload-item-status{margin-top:7px;font-size:12px;color:var(--muted);overflow-wrap:anywhere}.upload-item.uploaded .upload-item-status,.upload-item.uploading .upload-item-status{color:var(--accent)}.upload-item.failed .upload-item-status{color:var(--danger)}
+</style>
+</head>
+<body>
+<div class="app" id="app">
+  <header class="topbar">
+    <div class="brand"><button type="button" class="icon-button mobile-toggle" id="menu-toggle" aria-label="Show folders" aria-controls="sidebar" aria-expanded="false"></button><span class="brand-mark" id="brand-icon"></span>Files <small>ACF filesystem</small></div>
+    <button type="button" class="button primary" id="upload-open" disabled aria-haspopup="dialog" aria-controls="upload-dialog">Upload files</button>
+  </header>
+  <button type="button" class="overlay" id="overlay" aria-label="Hide folders" tabindex="-1"></button>
+  <aside class="sidebar" id="sidebar" aria-label="Folder navigation">
+    <p class="section-label">Quick access</p>
+    <nav class="shortcuts" id="shortcuts" aria-label="Quick access"></nav>
+    <p class="section-label">Filesystem</p>
+    <nav aria-label="Folders"><ul class="tree" id="tree"></ul></nav>
+  </aside>
+  <main class="workspace" id="main">
+    <div class="pathbar"><button type="button" class="icon-button" id="up" aria-label="Parent folder" title="Parent folder"></button><nav class="breadcrumbs" id="breadcrumbs" aria-label="Breadcrumb"></nav><button type="button" class="icon-button" id="refresh" aria-label="Refresh" title="Refresh" style="margin-left:auto"></button></div>
+    <div class="content" id="content" aria-busy="true"></div>
+    <footer class="footer"><span class="footer-path" id="footer-path">/</span><span id="footer-status">Loading…</span></footer>
+  </main>
+</div>
+<dialog class="upload-dialog" id="upload-dialog" aria-labelledby="upload-title" aria-describedby="upload-intro">
+  <form id="upload-form">
+    <h2 id="upload-title">Upload files</h2>
+    <p class="upload-intro" id="upload-intro">Choose files and check their destination before uploading.</p>
+    <label class="upload-field" for="upload-file">Files<input type="file" id="upload-file" multiple required></label>
+    <div class="upload-queue" id="upload-queue" aria-label="Selected files" hidden></div>
+    <label class="upload-option" for="upload-downloads"><input type="checkbox" id="upload-downloads"><span id="upload-downloads-label">Use Home Downloads (/root/Downloads)</span></label>
+    <div class="upload-destination"><span>Upload destination</span><output id="upload-destination" aria-live="polite"></output></div>
+    <p class="upload-note" id="upload-note">Existing files will not be overwritten.</p>
+    <div class="notice upload-error" id="upload-error" role="alert" hidden></div>
+    <div class="upload-progress" id="upload-progress" role="status" hidden><span class="spinner" aria-hidden="true"></span><span id="upload-progress-text">Uploading…</span></div>
+    <div class="actions"><button type="button" id="upload-cancel">Cancel</button><button type="submit" class="primary" id="upload-submit" disabled>Upload files</button></div>
+  </form>
+</dialog>
+<div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+<script src="/assets/markdown-it.min.js"></script>
+<script>
+'use strict';
+const paths={upload:'M12 16V4m-5 5 5-5 5 5 M4 17v4h16v-4',folder:'M3 6h6l2 2h10v11H3z M3 6V4h6l2 2',file:'M6 3h8l4 4v14H6z M14 3v5h5',download:'M12 3v12m-5-5 5 5 5-5 M4 17v4h16v-4',copy:'M9 8h11v13H9z M15 8V3H4v13h5',chevron:'m9 5 7 7-7 7',home:'m3 10 9-7 9 7 M5 9v12h5v-7h4v7h5V9',up:'m6 10 6-6 6 6 M12 4v16',refresh:'M20 7v5h-5 M4 17v-5h5 M5.4 7A8 8 0 0 1 13 4c3 0 5.3 1.7 7 4 M4 16c1.7 2.3 4 4 7 4a8 8 0 0 0 7.6-3',menu:'M4 6h16 M4 12h16 M4 18h16',lock:'M6 10h12v11H6z M8 10V7a4 4 0 0 1 8 0v3',error:'M12 8v5 M12 17h.01 M12 3 2 21h20z',box:'M4 5h16v14H4z M4 10h16 M8 5v5',search:'M10 3a7 7 0 1 0 0 14 7 7 0 0 0 0-14 M15 15l6 6'};
+const $=id=>document.getElementById(id);
+function element(tag,className,text){const n=document.createElement(tag);if(className)n.className=className;if(text!==undefined)n.textContent=text;return n;}
+function icon(name){const n=document.createElementNS('http://www.w3.org/2000/svg','svg');n.setAttribute('viewBox','0 0 24 24');n.setAttribute('aria-hidden','true');const p=document.createElementNS(n.namespaceURI,'path');p.setAttribute('d',paths[name]||paths.file);n.append(p);return n;}
+function normalize(path){const parts=[];for(const part of path.split('/')){if(!part||part==='.')continue;if(part==='..')parts.pop();else parts.push(part);}return '/'+parts.join('/');}
+function route(path){return '/browse/'+normalize(path).slice(1).split('/').map(encodeURIComponent).join('/');}
+function downloadRoute(path){return '/download/'+normalize(path).slice(1).split('/').map(encodeURIComponent).join('/');}
+function parent(path){const p=normalize(path);return p.slice(0,p.lastIndexOf('/'))||'/';}
+function basename(path){return normalize(path).split('/').pop()||'Filesystem';}
+function currentPath(){try{return normalize(decodeURIComponent(location.pathname.replace(/^\/browse\/?/,'')));}catch{return '/';}}
+function link(path,label,className){const a=element('a',className,label);a.href=route(path);a.dataset.path=normalize(path);return a;}
+function size(bytes){if(bytes===null||bytes===undefined)return '—';if(bytes<1024)return bytes+' B';const u=['KB','MB','GB','TB'];let i=-1;do{bytes/=1024;i++;}while(bytes>=1024&&i<u.length-1);return bytes.toFixed(bytes<10?1:0)+' '+u[i];}
+function date(value){if(value===null||value===undefined)return '—';const d=new Date(typeof value==='number'?value*1000:value);return isNaN(d)?'—':d.toLocaleString(undefined,{month:'short',day:'numeric',year:'numeric',hour:'2-digit',minute:'2-digit'});}
+async function api(endpoint,path,extra={}){const url=new URL('/api/'+endpoint,location.origin);url.searchParams.set('path',path);for(const [k,v] of Object.entries(extra))url.searchParams.set(k,v);const response=await fetch(url,{credentials:'same-origin',cache:'no-store'});if(!response.ok){let message='Request failed ('+response.status+').';try{message=(await response.json()).error||message;}catch{}throw new Error(message);}return response.json();}
+function showToast(message,error=false){clearTimeout(toastTimer);$('toast').textContent=message;$('toast').classList.toggle('error',error);$('toast').hidden=false;toastTimer=setTimeout(()=>$('toast').hidden=true,error?6500:2800);}
+function sidebar(open){$('app').classList.toggle('sidebar-open',open);$('menu-toggle').setAttribute('aria-expanded',String(open));$('menu-toggle').setAttribute('aria-label',open?'Hide folders':'Show folders');}
+let activePath=currentPath(),generation=0,toastTimer;
+let fileSettings=null,activeDirectory=null,uploadDirectory=null,uploadBusy=false;
+let uploadItems=[],uploadTarget=null,uploadAttempted=false;
+const treeNodes=new Map();
+function highlightTree(){for(const [path,node] of treeNodes){node.row.classList.toggle('current',path===activePath);if(path===activePath)node.anchor.setAttribute('aria-current','page');else node.anchor.removeAttribute('aria-current');}}
+function addTreeNode(path,name,list){if(treeNodes.has(path))return;const item=element('li'),row=element('div','tree-row'),toggle=element('button','tree-toggle'),anchor=link(path,'','tree-link'),children=element('ul');toggle.type='button';toggle.append(icon('chevron'));toggle.setAttribute('aria-expanded','false');toggle.setAttribute('aria-label','Expand '+name);children.id='folders-'+treeNodes.size;toggle.setAttribute('aria-controls',children.id);children.hidden=true;anchor.append(icon('folder'),element('span','',name));anchor.title=path;row.append(toggle,anchor);item.append(row,children);list.append(item);const node={path,name,row,toggle,anchor,children,loaded:false,loading:false,next:null};treeNodes.set(path,node);toggle.addEventListener('click',()=>toggleTree(node));return node;}
+async function toggleTree(node){const open=node.children.hidden;node.children.hidden=!open;node.toggle.setAttribute('aria-expanded',String(open));node.toggle.setAttribute('aria-label',(open?'Collapse ':'Expand ')+node.name);if(open&&!node.loaded)await loadTree(node,0);}
+async function loadTree(node,offset){if(node.loading)return;node.loading=true;const status=element('li','tree-note','Loading…');node.children.querySelectorAll(':scope > .tree-note, :scope > .tree-more-item').forEach(n=>n.remove());node.children.append(status);try{const result=await api('list',node.path,{offset,limit:250,directories:1});status.remove();for(const entry of result.entries)if(entry.kind==='directory')addTreeNode(entry.path,entry.name,node.children);node.loaded=true;node.next=result.next_offset;if(node.next!==null&&node.next!==undefined){const item=element('li','tree-more-item'),button=element('button','tree-more','Load more folders');button.type='button';button.addEventListener('click',()=>{item.remove();loadTree(node,node.next);});item.append(button);node.children.append(item);}else if(!node.children.children.length)node.children.append(element('li','tree-note','No subfolders'));if(result.truncated)node.children.append(element('li','tree-note','Folder list is limited.'));highlightTree();}catch(error){status.textContent=error.message;status.className='tree-note';const retry=element('button','tree-more','Retry');retry.type='button';retry.addEventListener('click',()=>loadTree(node,offset));status.append(document.createElement('br'),retry);}finally{node.loading=false;}}
+function breadcrumbs(path){const target=$('breadcrumbs');target.replaceChildren();const root=link('/','');root.append(icon('box'));root.setAttribute('aria-label','Filesystem root');target.append(root);const parts=path.split('/').filter(Boolean);let sofar='';parts.forEach((part,index)=>{sofar+='/'+part;target.append(element('span','separator','/'));const a=link(sofar,part);if(index===parts.length-1)a.setAttribute('aria-current','page');target.append(a);});if(!parts.length){root.setAttribute('aria-current','page');target.append(element('span','','Filesystem'));}target.scrollLeft=target.scrollWidth;}
+function heading(path,subtitle){const header=element('div','page-heading'),titles=element('div');titles.append(element('h1','',basename(path)),element('div','subtitle',subtitle));header.append(titles);return header;}
+function emptyState(title,message,kind='folder'){const box=element('div','empty');box.append(icon(kind),element('strong','',title),element('p','',message));return box;}
+function downloadButton(path,label='Download',compact=false){const a=element('a',compact?'icon-button row-download':'button');a.href=downloadRoute(path);a.append(icon('download'));if(!compact)a.append(document.createTextNode(label));a.setAttribute('aria-label','Download '+basename(path));a.title='Download '+basename(path);return a;}
+function renderRow(entry,tbody){const row=element('tr'),name=element('td'),type=element('td'),bytes=element('td'),modified=element('td'),actions=element('td'),a=link(entry.path,'','entry-link'+(entry.kind==='directory'?' directory':''));a.append(icon(entry.kind==='directory'?'folder':'file'),element('span','name',entry.name));a.title=entry.path;if(entry.symlink){const mark=element('span','symlink','↗');mark.title='Symbolic link';a.append(mark);}name.append(a);type.textContent=entry.kind==='directory'?'Folder':entry.kind==='file'?'File':'Special';bytes.textContent=entry.kind==='directory'?'—':size(entry.size);modified.textContent=date(entry.mtime);if(entry.kind==='file')actions.append(downloadButton(entry.path,'',true));row.append(name,type,bytes,modified,actions);tbody.append(row);}
+async function renderDirectory(path,info,version){const result=await api('list',path,{offset:0,limit:250});if(version!==generation)return;const content=$('content'),header=heading(path,path==='/'?'All folders and files in this environment':path);content.replaceChildren(header);const table=element('table','listing'),thead=element('thead'),hrow=element('tr'),tbody=element('tbody');for(const label of ['Name','Kind','Size','Modified','']){const th=element('th','',label);th.scope='col';if(!label)th.append(element('span','visually-hidden','Actions'));hrow.append(th);}thead.append(hrow);table.append(thead,tbody);let count=0;const more=element('button','load-more','Load more'),note=element('div','notice warning','This directory is very large. The list is limited to 10,000 entries.');more.type='button';let next=result.next_offset;function append(data){data.entries.forEach(entry=>renderRow(entry,tbody));count+=data.entries.length;next=data.next_offset;more.hidden=next===null||next===undefined;note.hidden=!data.truncated;$('footer-status').textContent=count+' '+(count===1?'item':'items')+(more.hidden?'':' shown');}if(result.entries.length){content.append(note,table,more);append(result);}else{content.append(emptyState('This folder is empty','Choose another folder in the sidebar or go up one level.'));$('footer-status').textContent='0 items';}more.addEventListener('click',async()=>{more.disabled=true;more.textContent='Loading…';try{const page=await api('list',path,{offset:next,limit:250});if(version===generation)append(page);}catch(error){showToast(error.message,true);}finally{more.disabled=false;more.textContent='Load more';}});}
+async function copyContents(path,button){button.disabled=true;const original=button.lastChild;const previous=original.textContent;original.textContent='Copying…';try{const url=new URL('/api/text',location.origin);url.searchParams.set('path',path);const response=await fetch(url,{credentials:'same-origin',cache:'no-store'});if(!response.ok){let message='Could not copy this file.';try{message=(await response.json()).error||message;}catch{}throw new Error(message);}const content=(await response.json()).text;let copied=false;if(navigator.clipboard&&window.isSecureContext){try{await navigator.clipboard.writeText(content);copied=true;}catch{}}if(!copied){const area=element('textarea');area.value=content;area.setAttribute('readonly','');area.style.cssText='position:fixed;top:0;left:-9999px;opacity:0';document.body.append(area);area.select();area.setSelectionRange(0,content.length);copied=document.execCommand('copy');area.remove();button.focus();}if(!copied)throw new Error('Clipboard access failed. Select the preview text to copy, or download the file.');showToast('File contents copied.');}catch(error){showToast(error.message,true);}finally{button.disabled=false;original.textContent=previous;}}
+function renderShortcuts(){
+  $('shortcuts').replaceChildren();
+  for(const [path,label,name] of [[fileSettings?.home||'/root','Home','home'],[fileSettings?.downloads||'/root/Downloads','Downloads','download'],['/workspace','Workspace','folder']]){
+    const a=link(path,'','shortcut');a.append(icon(name),document.createTextNode(label));$('shortcuts').append(a);
+  }
+}
+function updateUploadAvailability(){
+  $('upload-open').disabled=!fileSettings||!activeDirectory||uploadBusy;
+  $('upload-open').title=!fileSettings?'Upload settings are unavailable. Refresh to retry.':!activeDirectory?'Open a folder or file to choose an upload destination':'Upload a file to this folder';
+}
+async function loadFileSettings(){
+  try{
+    const settings=await api('config','/');
+    if(typeof settings.home!=='string'||!settings.home.startsWith('/')||typeof settings.downloads!=='string'||!settings.downloads.startsWith('/'))throw new Error('Invalid upload settings');
+    fileSettings=settings;renderShortcuts();
+  }catch(error){fileSettings=null;showToast('Uploads unavailable: '+error.message,true);}
+  updateUploadAvailability();
+}
+function uploadDestination(){return uploadTarget||($('upload-downloads').checked?fileSettings.downloads:uploadDirectory);}
+function updateUploadDestination(){
+  const completed=uploadItems.filter(item=>item.state==='uploaded').length;
+  const remaining=uploadItems.length-completed;
+  $('upload-destination').textContent=uploadDestination();
+  $('upload-file').disabled=uploadBusy||completed>0;
+  $('upload-downloads').disabled=uploadBusy||completed>0;
+  $('upload-cancel').disabled=uploadBusy;
+  $('upload-cancel').textContent=completed?'Done':'Cancel';
+  $('upload-submit').disabled=uploadBusy||remaining===0;
+  $('upload-submit').textContent=uploadBusy?'Uploading…':uploadAttempted?'Retry remaining ('+remaining+')':remaining===1?'Upload file':remaining>1?'Upload '+remaining+' files':'Upload files';
+  for(const item of uploadItems)item.nameInput.disabled=uploadBusy||item.state==='uploaded';
+  $('upload-note').textContent=completed?'Uploaded files stay in this destination. Retry remaining files, or choose Done to start a new batch.':'Files upload one at a time. Existing files will not be overwritten.';
+}
+function setUploadItemState(item,state,message){
+  item.state=state;item.row.className='upload-item '+state;item.statusNode.textContent=message;
+}
+function uploadFileChanged(){
+  if(uploadBusy||uploadItems.some(item=>item.state==='uploaded'))return;
+  uploadItems=[];uploadTarget=null;uploadAttempted=false;
+  const queue=$('upload-queue');queue.replaceChildren();
+  for(const file of Array.from($('upload-file').files||[])){
+    const row=element('div','upload-item'),heading=element('div','upload-item-heading'),label=element('label','upload-save'),nameInput=element('input'),statusNode=element('div','upload-item-status','Ready');
+    heading.append(element('span','upload-original',file.name),element('span','upload-size',size(file.size)));
+    nameInput.type='text';nameInput.value=file.name;nameInput.maxLength=255;nameInput.autocomplete='off';nameInput.spellcheck=false;nameInput.setAttribute('aria-label','Save '+file.name+' as');
+    label.append(element('span','','Save as'),nameInput);row.append(heading,label,statusNode);queue.append(row);
+    const item={file,row,nameInput,statusNode,state:'pending',savedPath:null};uploadItems.push(item);
+    nameInput.addEventListener('input',()=>{if(item.state==='failed')setUploadItemState(item,'pending','Ready to retry');$('upload-error').hidden=true;updateUploadDestination();});
+  }
+  queue.hidden=uploadItems.length===0;$('upload-error').hidden=true;updateUploadDestination();
+}
+function setUploadBusy(busy){
+  uploadBusy=busy;$('upload-progress').hidden=!busy;$('upload-form').setAttribute('aria-busy',String(busy));
+  updateUploadDestination();updateUploadAvailability();
+}
+function openUpload(){
+  if(!fileSettings||!activeDirectory||uploadBusy)return;
+  uploadDirectory=activeDirectory;uploadItems=[];uploadTarget=null;uploadAttempted=false;
+  $('upload-file').value='';$('upload-downloads').checked=false;$('upload-queue').replaceChildren();$('upload-queue').hidden=true;
+  $('upload-downloads-label').textContent='Use Home Downloads ('+fileSettings.downloads+')';
+  $('upload-error').hidden=true;setUploadBusy(false);$('upload-dialog').showModal();$('upload-file').focus();
+}
+function closeUpload(refresh=true){
+  if(uploadBusy)return;
+  $('upload-dialog').close();$('upload-open').focus();
+  if(refresh&&uploadItems.some(item=>item.state==='uploaded'))navigate(uploadDestination());
+}
+async function submitUpload(event){
+  event.preventDefault();if(uploadBusy)return;
+  const pending=uploadItems.filter(item=>item.state!=='uploaded'),destination=uploadDestination();
+  const errorBox=$('upload-error');errorBox.hidden=true;
+  if(!pending.length){errorBox.textContent='Choose files to upload.';errorBox.hidden=false;return;}
+  uploadAttempted=true;setUploadBusy(true);
+  try{
+    for(let index=0;index<pending.length;index++){
+      const item=pending[index],name=item.nameInput.value;
+      $('upload-progress-text').textContent='Uploading '+(index+1)+' of '+pending.length+'…';
+      try{
+        if(!name||name==='.'||name==='..'||/[\u0000/\\]/.test(name))throw new Error('Enter a file name without folders or slashes.');
+        setUploadItemState(item,'uploading','Uploading…');
+        const url=new URL('/api/upload',location.origin);url.searchParams.set('path',destination);url.searchParams.set('name',name);
+        const response=await fetch(url,{method:'POST',credentials:'same-origin',cache:'no-store',headers:{'Content-Type':'application/octet-stream','X-ACF-Upload':'1'},body:item.file});
+        let result;try{result=await response.json();}catch{throw new Error('Upload response unavailable. Check the destination folder before retrying.');}
+        if(!response.ok)throw new Error(result.error||'Upload failed ('+response.status+').');
+        item.savedPath=result.path;uploadTarget=destination;setUploadItemState(item,'uploaded','Uploaded');
+      }catch(error){setUploadItemState(item,'failed',error.message);}
+    }
+    const completed=uploadItems.filter(item=>item.state==='uploaded').length;
+    if(completed===uploadItems.length){
+      setUploadBusy(false);closeUpload(false);await navigate(destination);
+      showToast(completed===1?'Uploaded to '+uploadItems[0].savedPath:'Uploaded '+completed+' files to '+destination);
+    }else{
+      errorBox.textContent=completed+' of '+uploadItems.length+' files uploaded. Review the errors below each file, rename if needed, and retry remaining files.';
+      errorBox.hidden=false;
+    }
+  }finally{setUploadBusy(false);}
+}
+function readMarkdownMode(){try{return localStorage.getItem('sandbox.files.markdown-mode')==='raw'?'raw':'rendered';}catch{return 'rendered';}}
+function writeMarkdownMode(mode){try{localStorage.setItem('sandbox.files.markdown-mode',mode);}catch{}}
+function markdownHeadingSlug(text){return text.normalize('NFKC').trim().toLowerCase().replace(/[^\p{L}\p{N}_\s-]/gu,'').replace(/\s+/g,'-')||'section';}
+function markdownAnchor(hash){if(!hash)return '';try{return '#markdown-'+markdownHeadingSlug(decodeURIComponent(hash.replace(/^#/,'')));}catch{return '';}}
+function markdownDestination(href,path){
+  const value=String(href||'').trim();
+  if(!value||/[\u0000-\u001f\u007f\\]/.test(value)||value.startsWith('//'))return null;
+  if(value.startsWith('#'))return {href:markdownAnchor(value)};
+  const scheme=value.match(/^([a-z][a-z0-9+.-]*):/i);
+  if(scheme&&!/^https?$/i.test(scheme[1]))return null;
+  try{
+    const base=location.origin+'/'+normalize(path).slice(1).split('/').map(encodeURIComponent).join('/');
+    const url=new URL(value,base);
+    if(!/^https?:$/.test(url.protocol))return null;
+    if(scheme&&url.origin!==location.origin)return {href:url.href,external:true};
+    let destination=decodeURIComponent(url.pathname);
+    if(scheme&&destination.startsWith('/browse/'))destination=destination.slice('/browse'.length);
+    destination=normalize(destination);
+    const hash=markdownAnchor(url.hash);
+    return {href:route(destination)+hash,path:destination,hash};
+  }catch{return null;}
+}
+let markdownRenderer;
+function renderMarkdown(text,path){
+  if(!markdownRenderer){
+    if(typeof window.markdownit!=='function')throw new Error('Markdown renderer unavailable');
+    const md=window.markdownit({html:false,linkify:false,typographer:false});
+    md.core.ruler.push('sandbox_heading_ids',state=>{
+      const used=new Set();
+      for(let i=0;i<state.tokens.length;i++){
+        if(state.tokens[i].type!=='heading_open')continue;
+        const inline=state.tokens[i+1];
+        const label=(inline.children||[]).map(token=>token.type==='softbreak'||token.type==='hardbreak'?' ':token.type==='text'||token.type==='code_inline'||token.type==='image'?token.content:'').join('');
+        const slug=markdownHeadingSlug(label);let id='markdown-'+slug,count=0;
+        while(used.has(id))id='markdown-'+slug+'-'+(++count);
+        used.add(id);state.tokens[i].attrSet('id',id);
+      }
+    });
+    md.renderer.rules.link_open=(tokens,index,options,env,self)=>{
+      const token=tokens[index],destination=markdownDestination(token.attrGet('href'),env.path);
+      (env.linkTags||(env.linkTags=[])).push(destination?'a':'span');
+      if(!destination)return '<span class="markdown-link-disabled">';
+      token.attrSet('href',destination.href);
+      if(destination.external){token.attrSet('target','_blank');token.attrSet('rel','noopener noreferrer');}
+      if(destination.path){token.attrSet('data-path',destination.path);token.attrSet('data-hash',destination.hash||'');}
+      return self.renderToken(tokens,index,options);
+    };
+    md.renderer.rules.link_close=(tokens,index,options,env)=>'</'+env.linkTags.pop()+'>';
+    md.renderer.rules.image=(tokens,index)=>'<span class="markdown-image">'+md.utils.escapeHtml('Image: '+(tokens[index].content||'Untitled image'))+' <small>not loaded</small></span>';
+    markdownRenderer=md;
+  }
+  return markdownRenderer.render(text,{path});
+}
+function scrollToMarkdownAnchor(hash=location.hash){
+  if(!hash)return;
+  let id;try{id=decodeURIComponent(hash.slice(1));}catch{return;}
+  if(!id.startsWith('markdown-'))return;
+  const target=document.getElementById(id);
+  if(target&&target.closest('.markdown-preview'))target.scrollIntoView({block:'start'});
+}
+async function renderFile(path,info,version){
+  const result=await api('preview',path);if(version!==generation)return;
+  const content=$('content'),header=heading(path,size(result.size)+' · Modified '+date(result.mtime)),actions=element('div','actions'),copy=element('button','button primary');
+  copy.type='button';copy.append(icon('copy'),document.createTextNode('Copy contents'));copy.disabled=!result.copyable;copy.title=result.binary?'Binary files cannot be copied as text':!result.copyable?'Copy supports text files up to 2 MB':'Copy the complete file contents';copy.addEventListener('click',()=>copyContents(path,copy));actions.append(copy,downloadButton(path));header.append(actions);content.replaceChildren(header);
+  if(result.binary){content.append(emptyState('Binary file','Download this file to open it in a suitable application.','file'));}
+  else{
+    if(result.truncated)content.append(element('div','notice warning','Preview limited to the first 256 KB. Download for the full file'+(result.copyable?', or use Copy contents.':'.')));
+    const text=result.text||'',pre=element('pre','preview'),code=element('code','',text);pre.tabIndex=0;pre.setAttribute('aria-label','Raw file contents');pre.id='raw-preview';pre.append(code);
+    const markdown=/\.(?:md|markdown)$/i.test(path);
+    let article,mode=readMarkdownMode();
+    if(markdown){
+      const toolbar=element('div','preview-toolbar'),label=element('span','preview-label'),modes=element('div','preview-modes'),rendered=element('button','preview-mode','Rendered'),raw=element('button','preview-mode','Raw');
+      label.append(icon('file'),document.createTextNode('Markdown'));modes.setAttribute('role','group');modes.setAttribute('aria-label','Markdown preview mode');article=element('article','markdown-preview');article.id='rendered-preview';article.tabIndex=0;article.setAttribute('aria-label','Rendered Markdown');
+      rendered.type=raw.type='button';rendered.setAttribute('aria-controls','rendered-preview');raw.setAttribute('aria-controls','raw-preview');
+      try{article.innerHTML=renderMarkdown(text,path);if(!text)article.append(element('p','markdown-empty','This Markdown file is empty.'));}
+      catch{mode='raw';rendered.disabled=true;rendered.title='Markdown renderer is unavailable. Refresh to retry.';content.append(element('div','notice warning','Markdown rendering is unavailable. Showing the raw file.'));}
+      function setMode(value,remember=false){mode=value;article.hidden=mode!=='rendered';pre.hidden=mode!=='raw';rendered.setAttribute('aria-pressed',String(mode==='rendered'));raw.setAttribute('aria-pressed',String(mode==='raw'));if(remember)writeMarkdownMode(mode);if(mode==='rendered')scrollToMarkdownAnchor();}
+      rendered.addEventListener('click',()=>setMode('rendered',true));raw.addEventListener('click',()=>setMode('raw',true));modes.append(rendered,raw);toolbar.append(label,modes);content.append(toolbar,article,pre);setMode(mode);
+    }else{content.append(pre);}
+    const foot=element('div','preview-footer');foot.append(element('span','','UTF-8'),element('span','',text?'Read-only preview':'Empty file'));content.append(foot);
+  }
+  $('footer-status').textContent=result.binary?'Binary file':result.truncated?'Partial preview':/\.(?:md|markdown)$/i.test(path)?'Markdown preview':'Text preview';
+}
+async function navigate(path,options={}){path=normalize(path);const version=++generation;activePath=path;activeDirectory=null;updateUploadAvailability();const destination=route(path)+(options.hash||'');if(options.history!==false&&location.pathname+location.hash!==destination)history.pushState({},'',destination);document.title=basename(path)+' · Files';breadcrumbs(path);$('footer-path').textContent=path;$('footer-status').textContent='Loading…';$('up').disabled=path==='/';$('content').setAttribute('aria-busy','true');const loading=element('div','empty');loading.append(element('div','spinner'),element('span','','Loading…'));$('content').replaceChildren(loading);highlightTree();sidebar(false);try{const info=await api('stat',path);if(version!==generation)return;activeDirectory=info.kind==='directory'?path:info.kind==='file'?parent(path):null;updateUploadAvailability();if(info.kind==='directory')await renderDirectory(path,info,version);else if(info.kind==='file')await renderFile(path,info,version);else{$('content').replaceChildren(heading(path,path),emptyState('Special filesystem entry','This entry can be inspected in a terminal. File previews are available for regular files.','file'));$('footer-status').textContent='Special file';}}catch(error){if(version!==generation)return;activeDirectory=null;updateUploadAvailability();const state=emptyState('Unable to open this path',error.message,'error'),actions=element('div','actions'),retry=element('button','','Try again'),up=link(parent(path),'Go to parent folder','button');retry.type='button';retry.addEventListener('click',()=>navigate(path,{history:false}));actions.append(retry,up);state.append(actions);$('content').replaceChildren(heading(path,path),state);$('footer-status').textContent='Unavailable';}finally{if(version===generation){$('content').setAttribute('aria-busy','false');scrollToMarkdownAnchor();}}}
+$('brand-icon').append(icon('folder'));$('upload-open').replaceChildren(icon('upload'),document.createTextNode('Upload files'));$('menu-toggle').append(icon('menu'));$('up').append(icon('up'));$('refresh').append(icon('refresh'));
+renderShortcuts();loadFileSettings();
+$('upload-open').addEventListener('click',openUpload);$('upload-file').addEventListener('change',uploadFileChanged);$('upload-downloads').addEventListener('change',updateUploadDestination);$('upload-form').addEventListener('submit',submitUpload);$('upload-cancel').addEventListener('click',closeUpload);$('upload-dialog').addEventListener('cancel',event=>{event.preventDefault();if(!uploadBusy)closeUpload();});$('upload-dialog').addEventListener('close',()=>$('upload-open').focus());
+document.addEventListener('click',event=>{const a=event.target.closest('a[data-path]');if(!a||event.defaultPrevented||event.button!==0||event.metaKey||event.ctrlKey||event.shiftKey||event.altKey)return;event.preventDefault();navigate(a.dataset.path,{hash:a.dataset.hash||''});});
+$('menu-toggle').addEventListener('click',()=>sidebar(!$('app').classList.contains('sidebar-open')));$('overlay').addEventListener('click',()=>sidebar(false));document.addEventListener('keydown',event=>{if(event.key==='Escape')sidebar(false);});$('up').addEventListener('click',()=>navigate(parent(activePath)));$('refresh').addEventListener('click',()=>{if(!fileSettings)loadFileSettings();for(const node of treeNodes.values()){if(!node.children.hidden){for(const child of [...treeNodes.keys()])if(child!==node.path&&child.startsWith(node.path==='/'?'/':node.path+'/'))treeNodes.delete(child);node.children.replaceChildren();node.loaded=false;loadTree(node,0);}}navigate(activePath,{history:false});});window.addEventListener('popstate',()=>navigate(currentPath(),{history:false}));
+const rootNode=addTreeNode('/','/', $('tree'));toggleTree(rootNode);navigate(activePath,{history:false});
+</script>
+</body>
+</html>

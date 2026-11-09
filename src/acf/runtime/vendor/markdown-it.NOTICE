@@ -1,0 +1,19 @@
+markdown-it 15.0.3, browser UMD bundle (global: markdownit)
+
+Project: https://github.com/markdown-it/markdown-it
+Tag: https://github.com/markdown-it/markdown-it/tree/15.0.3
+Commit: a8c00d474ec9b304fad9b71c16d6fa8b4909279e
+Package: https://registry.npmjs.org/markdown-it/-/markdown-it-15.0.3.tgz
+Package integrity: sha512-+Az7Ojz3iRGu8KYMvJ6xVhvrxP3eE+vEtJX75Ow88XBpcQNV/0lGX5ZynIIBftREo4DC2jsveAMDaeltmm8QvQ==
+Original path: package/dist/browser/markdown-it.umd.min.js
+Local path: markdown-it.min.js (renamed; bytes unchanged)
+Bundle bytes: 100786
+Bundle SHA-256: 391f2aa638e75e6c7859d0a5c5650ef0956722a45998f17e05b83bc655778e1e
+
+The bundle is served locally; there is no CDN or runtime package install.
+The upstream source-map reference is unchanged; no source map is shipped.
+Upstream MIT license: markdown-it.LICENSE
+Bundled dependency licenses: markdown-it.THIRD-PARTY-LICENSES
+Dependency versions and integrity values were taken from the pinned tag's
+package-lock.json and verified when retrieving their license files:
+https://raw.githubusercontent.com/markdown-it/markdown-it/15.0.3/package-lock.json

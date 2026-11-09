@@ -1,0 +1,111 @@
+#!/usr/bin/env python3
+"""Inspect services or submit an acknowledged supervisor control request."""
+import argparse
+import fcntl
+import json
+from pathlib import Path
+import subprocess
+import sys
+import time
+import uuid
+
+RUN = Path('/run/acf')
+
+
+def read_status(run=RUN):
+    try:
+        status = json.loads((run / 'status.json').read_text())
+        if not isinstance(status, dict) or not isinstance(status.get('services'), dict):
+            raise ValueError
+        return status
+    except (OSError, ValueError):
+        raise RuntimeError('Service supervisor is not ready; inspect container logs.') from None
+
+
+def control(action, name, run=RUN, timeout=90):
+    status = read_status(run)
+    if action not in ('start', 'stop', 'restart'):
+        raise ValueError('Unknown service action.')
+    names = set(status['services'])
+    if status.get('control_protocol') == 2:
+        names.update(('browser', 'desktop'))
+    elif name in ('browser', 'desktop'):
+        raise RuntimeError('Service groups need the updated supervisor. Stop and Start this environment in the dashboard; Desktop also needs the current container image.')
+    if name not in names:
+        raise ValueError('Unknown service. Available: ' + ', '.join(sorted(names)))
+    deadline = time.monotonic() + timeout
+    if status.get('control_protocol') != 2:
+        # Older supervisors have a one-slot mailbox. Serialize legacy callers
+        # and wait for consumption instead of silently overwriting a request.
+        with (run / 'control.lock').open('a') as lock:
+            while True:
+                try:
+                    fcntl.flock(lock, fcntl.LOCK_EX | fcntl.LOCK_NB)
+                    break
+                except BlockingIOError:
+                    if time.monotonic() >= deadline:
+                        raise TimeoutError('Timed out waiting for the service control lock.') from None
+                    time.sleep(.05)
+            path = run / 'control.json'
+            while path.exists():
+                if time.monotonic() >= deadline:
+                    raise TimeoutError('Timed out waiting for the service supervisor.')
+                time.sleep(.05)
+            temporary = run / 'control.tmp'
+            temporary.write_text(json.dumps({'name': name, 'action': action}))
+            temporary.replace(path)
+            while path.exists():
+                if time.monotonic() >= deadline:
+                    raise TimeoutError('Service request is pending; inspect service status before retrying.')
+                time.sleep(.05)
+        return
+    request_id = uuid.uuid4().hex
+    directory = run / 'control'
+    directory.mkdir(mode=0o700, exist_ok=True)
+    temporary = directory / (request_id + '.tmp')
+    path = directory / (f'{time.time_ns():020d}-' + request_id + '.json')
+    reply = run / 'control-results' / (request_id + '.json')
+    try:
+        temporary.write_text(json.dumps({'id': request_id, 'name': name, 'action': action}))
+        temporary.replace(path)
+        while time.monotonic() < deadline:
+            try:
+                result = json.loads(reply.read_text())
+            except FileNotFoundError:
+                time.sleep(.05)
+                continue
+            if not isinstance(result, dict) or result.get('ok') is not True:
+                message = result.get('error', 'Service request failed.') if isinstance(result, dict) else 'Invalid service response.'
+                raise RuntimeError(message)
+            return
+        raise TimeoutError('Service request is pending; inspect service status before retrying.')
+    finally:
+        temporary.unlink(missing_ok=True)
+        reply.unlink(missing_ok=True)
+
+
+def main(argv=None):
+    parser = argparse.ArgumentParser(description='Inspect or control ACF container services')
+    parser.add_argument('action', choices=('status', 'start', 'stop', 'restart'), default='status', nargs='?')
+    parser.add_argument('name', nargs='?')
+    parser.add_argument('--json', action='store_true')
+    args = parser.parse_args(argv)
+    try:
+        if args.action != 'status':
+            control(args.action, args.name)
+            return
+        status = read_status()
+        sessions = subprocess.run(['tmux', 'list-sessions', '-F', '#S'], capture_output=True, text=True)
+        status['sessions'] = sessions.stdout.splitlines() if sessions.returncode == 0 else []
+        if args.json:
+            print(json.dumps(status))
+        else:
+            for name, detail in status['services'].items():
+                print(f'{name:24} {detail["state"]:10} {detail["log"]}')
+            print('tmux sessions: ' + ', '.join(status['sessions']))
+    except (OSError, ValueError, RuntimeError) as exc:
+        parser.exit(1, f'acf-services: {exc}\n')
+
+
+if __name__ == '__main__':
+    main()

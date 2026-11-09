@@ -1,0 +1,5 @@
+#!/bin/sh
+set -eu
+acf-install caido
+mkdir -p /root/.local/share/caido
+exec caido-cli --listen 0.0.0.0:8080 --data-path /root/.local/share/caido --no-open --ui-domain localhost --ui-domain 127.0.0.1

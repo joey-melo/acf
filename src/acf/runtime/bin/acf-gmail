@@ -1,0 +1,43 @@
+#!/usr/bin/env python3
+"""Read Gmail through the official API using explicit, project-scoped OAuth credentials."""
+import argparse
+import json
+from pathlib import Path
+import sys
+import urllib.error
+import urllib.parse
+import urllib.request
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
+from common import environment
+
+parser = argparse.ArgumentParser(description='Read Gmail using the access token or OAuth refresh credentials in ACF settings ([credentials] in config.toml).')
+commands = parser.add_subparsers(dest='command', required=True)
+listing = commands.add_parser('list', help='List message IDs; accepts Gmail search syntax')
+listing.add_argument('--query', default='')
+listing.add_argument('--limit', type=int, default=20)
+listing.add_argument('--page-token', default='')
+get = commands.add_parser('get', help='Read a message in Gmail JSON format')
+get.add_argument('id')
+args = parser.parse_args()
+env = environment()
+try:
+    token = env.get('GMAIL_ACCESS_TOKEN')
+    if not token:
+        names = ('GMAIL_CLIENT_ID', 'GMAIL_CLIENT_SECRET', 'GMAIL_REFRESH_TOKEN')
+        if not all(env.get(name) for name in names):
+            sys.exit('Configure GMAIL_ACCESS_TOKEN or GMAIL_CLIENT_ID, GMAIL_CLIENT_SECRET, GMAIL_REFRESH_TOKEN; use the gmail.readonly OAuth scope.')
+        body = urllib.parse.urlencode(dict(client_id=env[names[0]], client_secret=env[names[1]], refresh_token=env[names[2]], grant_type='refresh_token')).encode()
+        with urllib.request.urlopen('https://oauth2.googleapis.com/token', body, timeout=30) as response:
+            token = json.load(response)['access_token']
+    base = 'https://gmail.googleapis.com/gmail/v1/users/me/messages'
+    if args.command == 'list':
+        url = base + '?' + urllib.parse.urlencode({'q': args.query, 'maxResults': min(500, max(1, args.limit)), 'pageToken': args.page_token})
+    else:
+        url = base + '/' + urllib.parse.quote(args.id, safe='') + '?format=full'
+    request = urllib.request.Request(url, headers={'Authorization': 'Bearer ' + token})
+    with urllib.request.urlopen(request, timeout=30) as response:
+        print(json.dumps(json.load(response), indent=2))
+except urllib.error.HTTPError as exc:
+    sys.exit(f'Gmail request failed (HTTP {exc.code}); check credentials, OAuth scope, and API access.')
+except (OSError, KeyError, ValueError) as exc:
+    sys.exit(f'Gmail request failed: {type(exc).__name__}')
